@@ -15,6 +15,16 @@ def login_user(request):
             if user:
                 login(request, user)
                 return redirect('index')
+            else:
+                context = {
+                    'login_form': login_form,
+                    'attention': f'The user with name {username} is not registered in the system!'
+
+                }
+        else:
+            context = {
+                'login_form': login_form,
+            }
 
     return render(request, 'auth/login.html', context)
 
