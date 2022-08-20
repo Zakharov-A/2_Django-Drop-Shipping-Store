@@ -19,4 +19,16 @@ class LoginForm(forms.Form):
         if not self.user.check_password(password):
             raise forms.ValidationError(f'Password for user {username} is not correct!')
 
-        # return cleaned_data
+
+class RegisterForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['email'].required = True
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-input'
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password')
+        widgets = {
+            'password': forms.PasswordInput()
+        }
