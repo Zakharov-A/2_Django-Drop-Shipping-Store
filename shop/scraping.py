@@ -17,7 +17,6 @@ from shop.models import Product
  }
  """
 
-
 class ScrapingError(Exception):
     pass
 
@@ -85,17 +84,17 @@ def scraping():
 
         print(data)
 
-        for item in data_list:
-            if not Product.objects.filter(code=item['code']).exists():
-                Product.objects.create(
-                    name=item['name'],
-                    code=item['code'],
-                    price=item['price'],
-                    unit=item['unit'],
-                    image_url=item['image_url'],
-                )
+    for item in data_list:
+        if not Product.objects.filter(code=item['code']).exists():
+            Product.objects.create(
+                name=item['name'],
+                code=item['code'],
+                price=item['price'],
+                unit=item['unit'],
+                image_url=item['image_url'],
+            )
 
-        return data_list
+    return data_list
 
 
 if __name__ == '__main__':
