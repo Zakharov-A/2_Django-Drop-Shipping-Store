@@ -141,6 +141,7 @@ def recalculate_order_amount_after_delete(sender, instance, **kwargs):
     order.amount = order.get_amount()
     order.save()
 
+
 @receiver(post_save, sender=Payment)
 def auto_payment(sender, instance, **kwargs):
     user = instance.user
